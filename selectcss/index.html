@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>jQuery实现美化版的单选框和复选框DEMO演示</title>
+<link rel="stylesheet" href="css/jquery-labelauty.css">
+<style>
+ul { list-style-type: none;}
+li { display: inline-block;}
+li { margin: 10px 0;}
+input.labelauty + label { font: 12px "Microsoft Yahei";}
+</style>
+</head>
+
+<body>
+<center>
+<h1>jQuery单选框跟复选框美化代码演示</h1>
+<h3>您的职业（单选框）</h3>
+<ul class="dowebok">
+	<li><input type="radio" name="radio" data-labelauty="视觉设计师"></li>
+	<li><input type="radio" name="radio" data-labelauty="交互设计师"></li>
+	<li><input type="radio" name="radio" data-labelauty="前端工程师"></li>
+	<li><input type="radio" name="radio" data-labelauty="数据分析师"></li>
+</ul>
+</center>
+
+
+<h3>您擅长的技能（复选框）</h3>
+<ul class="dowebok">
+	<p><li><input type="checkbox" name="checkbox" value="HTML" data-labelauty="HTML"></li>
+	<li><input type="checkbox" name="checkbox" value="CSS" data-labelauty="CSS"></li></p>
+	<p><input type="checkbox" name="checkbox" value="JavaScript" data-labelauty="JavaScript"></p>
+	<p><input type="checkbox" name="checkbox" value="PYTHON" data-labelauty="PYTHON"></p>
+	<p><input type="checkbox" name="checkbox" value="PHP" data-labelauty="PHP"></p>
+	<p><input type="checkbox" name="checkbox" value="JAVA" data-labelauty="JAVA"></p>
+	<p><input type="checkbox" name="checkbox" value="NET" data-labelauty=".NET"></p>
+	<p><input id="btnOperate" type="button" value="选择" onclick="static_num()"/></p>
+</ul>
+
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery-labelauty.js"></script>
+<script>
+$(function(){
+	$(':input').labelauty();
+});
+</script>
+<script>
+    function static_num() {
+        let list = document.querySelectorAll('input'), vals = [];
+        list.forEach(item => {
+            if ($(item).prop('checked')) {
+                vals.push($(item).val())
+            }
+        })
+        console.log(vals);
+        return vals
+	}
+	
+	static_num()
+</script>
+
+
+
+<div style="text-align:center;clear:both;">
+<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+<script src="/follow.js" type="text/javascript"></script>
+</div>
+</body>
+</html>

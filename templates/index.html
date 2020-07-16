@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Awesome-pyecharts</title>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+<!--    <style>-->
+<!--        select {-->
+<!--            border: none;-->
+<!--        }-->
+<!--    </style>-->
+</head>
+
+<body>
+<a href='/logout'>登出</a>
+<h2 align="center">Awesome-pyecharts</h2>
+<form action="" method=get>
+    <div>
+        <select name="" id="testselect" onchange=freshChart()>
+            <option selected value="43">苹果</option>
+            <option value="83">葡萄</option>
+            <option value="83">香蕉</option>
+            <!-- {% for i  in select_box %}
+                <option value="" id="idselect" name="adsense">{{ i.zone_name }}</option>
+                {% endfor %} -->
+        </select>
+        <!-- <button type="submit"  id="submit_data" >查询</button> -->
+    </div>
+</form>
+
+<p><input type="checkbox" name="category" value="今日话题"/>今日话题 </p>
+<p><input type="checkbox" name="category" value="视觉焦点"/>视觉焦点</p>
+<p><input type="checkbox" name="category" value="财经"/>财经</p>
+<p><input type="checkbox" name="category" value="汽车"/>汽车</p>
+<p><input type="checkbox" name="category" value="科技"/>科技</p>
+<p><input type="checkbox" name="category" value="房产"/>房产</p>
+<p><input type="checkbox" name="category" value="旅游"/>旅游</p>
+
+<p><input id="btnOperate" type="button" value="选择" onclick="freshChart()"/></p>
+
+<!-- <div id="bar" style="position:absolute;left:50px;top:200px;width:500px; height:400px;"></div> -->
+<div id="gauge" style="position:absolute;left:30%;top:600px;width:500px; height:400px;"></div>
+<div id="bars" style="position:absolute;right:50px;top:200px;width:500px; height:400px;"></div>
+
+<script>
+    $(function () {
+        freshChart();
+    })
+</script>
+
+<script>
+    function static_num() {
+        let list = document.querySelectorAll('input'), vals = [];
+        list.forEach(item => {
+            if ($(item).prop('checked')) {
+                vals.push($(item).val())
+            }
+        })
+        // console.log(vals);
+        return vals
+    }
+</script>
+
+<script>
+    function echartDraw(divid, ehartsTheme, drawUrl) {
+        var chart = echarts.init(document.getElementById(divid), ehartsTheme, {renderer: 'canvas'});
+        var values = document.getElementById("testselect").value
+        var check_val = static_num()
+
+        console.log(check_val)
+        $.ajax({
+            type: "POST",
+            url: drawUrl,
+            data: {"value": values, "select2": check_val},
+            dataType: 'json',
+            traditional: true,
+            success: function (result) {
+                chart.setOption(result);
+            }
+        });
+        return chart
+
+    }
+</script>
+
+<script>
+    function freshChart() {
+        echartDraw('gauge', 'white', "http://127.0.0.1:5000/gaugeChart")
+        // echartDraw('bar', 'white', "http://127.0.0.1:5000/barChart")
+        echartDraw('bars', 'white', "http://127.0.0.1:5000/barChart")
+    }
+</script>
+
+
+</body>
+
+</html>
